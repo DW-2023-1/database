@@ -1,0 +1,78 @@
+// Use DBML to define your database structure
+// Docs: https://dbml.dbdiagram.io/docs
+
+Project multidimensional_model {
+    Note: ''' 
+    ### Objetivo
+    Modelo multidimensional do trabalho final da disciplina Data Warehousing e Suporte à Decisão. 
+  '''
+}
+
+TableGroup fact { 
+    pagamento_beneficiario
+}
+
+Table pagamento_beneficiario {
+  id_dim_periodo_referencia integer [primary key, note: 'Chave que relaciona a dimensão dim_periodo_referencia']
+  id_dim_municipio integer [primary key, note: 'Chave que relaciona a dimensão dim_municipio']
+  id_dim_beneficiario integer [primary key, note: 'Chave que relaciona a dimensão dim_beneficiario']
+  id_dim_beneficio integer [primary key, note: 'Chave que relaciona a dimensão dim_beneficio']
+  valor_recebido float [note: 'Valor da parcela do benefício recebido pelo beneficiario']
+  parcela integer [note: 'Valor da parcela do benefício recebido']
+  observacao string [note: 'Observação sobre o pagamento']
+
+  Note: 'Tabela fato que relaciona o pagamento de um beneficiário de um município em um determinado período para cada benefício'
+}
+
+TableGroup dimension { 
+    dim_periodo_referencia
+    dim_municipio
+    dim_beneficiario
+    dim_beneficio
+}
+
+Table dim_periodo_referencia {
+  id_dim_periodo_referencia integer [primary key, note: 'Chave primária para identificar o período de referência']
+  mes integer [note: 'Mês de referência']
+  ano integer [note: 'Ano de referência']
+
+  Note: 'Dimensão tempo'
+}
+
+Table dim_municipio {
+  id_dim_municipio integer [primary key, note: 'Chave primária para identificar o município']
+  nome_municipio string [note: 'Nome do município']
+  cidade string [note: 'Cidade atrelada ao município']
+  uf string [note: 'UF atrelada ao município']
+
+  Note: 'Dimensão com detalhamento sobre o município'
+}
+
+Table dim_beneficiario {
+  id_dim_beneficiario integer [primary key, note: 'Chave primária para identificar o beneficiário']
+  id_versao integer [primary key, note: 'Versão histórica atrelada ao beneficiário']
+  nome_beneficiario string [note: 'Nome do beneficiário']
+  nis string [note: 'Número de Identificação Social (NIS) do beneficiário, caso possua.']
+  cpf string [note: 'CPF não identificado do beneficiário no formato ***.XXX.XXX-**']
+  qtd_dependente integer [note: 'Quantidade de dependentes cadastrados no CadÚnico']
+  menor_16_anos bool [note: 'Indica se o benefício é menor de 16 anos (True ou False)']
+  concedido_judicialmente bool [note: 'Indica se o benefício foi concedido judicialmente (True ou False)']
+  enquadramento string [note: 'Enquadramento do benefício']
+  representante_legal string [note: 'Nome do representante legal do beneficiário']
+
+  Note: 'Dimensão com detalhamento sobre o beneficiário'
+}
+
+Table dim_beneficio {
+  id_dim_beneficio integer [primary key, note: 'Chave primária para identificar o benefício']
+  nome_beneficio string [note: 'Nome do benefício']
+  descricao string [note: 'Descrição do benefício']
+  
+  Note: 'Dimensão com detalhamento sobre o benefício'
+}
+
+Ref: pagamento_beneficiario.id_dim_periodo_referencia < dim_periodo_referencia.id_dim_periodo_referencia
+Ref: pagamento_beneficiario.id_dim_municipio < dim_municipio.id_dim_municipio
+Ref: pagamento_beneficiario.id_dim_beneficiario < dim_beneficiario.id_dim_beneficiario
+Ref: pagamento_beneficiario.id_dim_beneficio < dim_beneficio.id_dim_beneficio
+
