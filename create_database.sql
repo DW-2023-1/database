@@ -34,7 +34,7 @@ CREATE TABLE IF NOT EXISTS dim_periodo_referencia (
   ano INT
 );
 
-CREATE TABLE IF NOT EXISTS dim_pagamento_beneficiario (
+CREATE TABLE IF NOT EXISTS pagamento_beneficiario (
   id_dim_periodo_referencia INT,
   id_dim_municipio INT,
   id_dim_beneficiario INT,
