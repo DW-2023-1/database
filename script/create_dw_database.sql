@@ -9,7 +9,7 @@ CREATE TABLE IF NOT EXISTS dim_beneficio (
 );
 
 CREATE TABLE IF NOT EXISTS dim_beneficiario (
-  id_dim_beneficiario INT AUTO_INCREMENT PRIMARY KEY,
+  id_dim_beneficiario INT,
   id_versao INT,
   nome_beneficiario VARCHAR(255),
   nis VARCHAR(20),
@@ -18,7 +18,8 @@ CREATE TABLE IF NOT EXISTS dim_beneficiario (
   menor_16_anos BOOLEAN,
   concedido_judicialmente BOOLEAN,
   enquadramento VARCHAR(255),
-  representante_legal VARCHAR(255)
+  representante_legal VARCHAR(255),
+  CONSTRAINT pk PRIMARY KEY (id_dim_beneficiario, id_versao) 
 );
 
 CREATE TABLE IF NOT EXISTS dim_municipio (
