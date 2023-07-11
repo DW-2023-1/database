@@ -529,7 +529,7 @@
     </partitioning>
     <connection>MySQLConnector</connection>
     <commit>100</commit>
-    <update_bypassed>Y</update_bypassed>
+    <update_bypassed>N</update_bypassed>
     <lookup>
       <schema>trabalhofinaldw</schema>
       <table>pagamento_beneficiario</table>
@@ -687,7 +687,7 @@
       <schema_name/>
     </partitioning>
     <connection>MySQLConnector</connection>
-    <sql>SELECT
+    <sql>SELECT DISTINCT
   id_dim_periodo_referencia,
   id_dim_municipio,
   id_dim_beneficiario,
@@ -699,9 +699,12 @@
 	SELECT DISTINCT `ano`, IF(concedido_judicialmente = "True", TRUE, FALSE) AS concedido_judicialmente, `cpf`, `enquadramento`, IF(menor_16_anos = "True", TRUE, FALSE) AS menor_16_anos, `mes`, `nis`, `nome_beneficiario`, `nome_beneficio`, `nome_municipio`, `observacao`, `parcela`, `qtd_dependente`, `representante_legal`, `valor_recebido`, `uf`, `cidade` 
 	FROM trabalhofinaldw.staging
   ) stg
-  LEFT JOIN trabalhofinaldw.dim_periodo_referencia USING(ano, mes)
-  LEFT JOIN trabalhofinaldw.dim_municipio USING(nome_municipio, uf, cidade)
-  LEFT JOIN trabalhofinaldw.dim_beneficiario AS db
+  INNER JOIN trabalhofinaldw.dim_periodo_referencia USING(ano, mes)
+  INNER JOIN trabalhofinaldw.dim_municipio USING(nome_municipio, uf, cidade)
+  INNER JOIN (
+	SELECT DISTINCT id_dim_beneficiario, nome_beneficiario, nis, cpf, qtd_dependente, menor_16_anos, concedido_judicialmente, enquadramento, representante_legal 
+    FROM trabalhofinaldw.dim_beneficiario
+   ) AS db
 	ON (CAST(db.nome_beneficiario AS CHAR) = CAST(stg.nome_beneficiario AS CHAR) OR db.nome_beneficiario IS NULL)
     AND (CAST(db.nis AS CHAR) = CAST(stg.nis AS CHAR) OR db.nis IS NULL)
 	AND (CAST(db.cpf AS CHAR) = CAST(stg.cpf AS CHAR) OR db.cpf IS NULL)
@@ -710,7 +713,7 @@
     AND (db.concedido_judicialmente = stg.concedido_judicialmente OR db.concedido_judicialmente IS NULL)
 	AND (db.enquadramento = stg.enquadramento OR db.enquadramento IS NULL)
     AND (db.representante_legal = stg.representante_legal OR db.representante_legal IS NULL)
-  LEFT JOIN trabalhofinaldw.dim_beneficio USING(nome_beneficio);
+  INNER JOIN trabalhofinaldw.dim_beneficio USING(nome_beneficio)
 	
 
 </sql>
