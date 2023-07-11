@@ -645,6 +645,31 @@
       <to>Sort rows 3</to>
       <enabled>Y</enabled>
     </hop>
+    <hop>
+      <from>Add version</from>
+      <to>Table output beneficiario</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>Select beneficiario</from>
+      <to>Unique rows - beneficiario</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>Sort rows 4 2</from>
+      <to>Add version</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>Unique rows - beneficiario</from>
+      <to>Sort rows 4 2</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>Treat Nis</from>
+      <to>Select beneficiario</to>
+      <enabled>Y</enabled>
+    </hop>
   </order>
   <step>
     <name>Add UF</name>
@@ -2083,63 +2108,48 @@
     <fields>
       <field>
         <name>ano</name>
-        <rename/>
       </field>
       <field>
         <name>concedido_judicialmente</name>
-        <rename/>
       </field>
       <field>
         <name>cpf</name>
-        <rename/>
       </field>
       <field>
         <name>enquadramento</name>
-        <rename/>
       </field>
       <field>
         <name>menor_16_anos</name>
-        <rename/>
       </field>
       <field>
         <name>mes</name>
-        <rename/>
       </field>
       <field>
         <name>nis</name>
-        <rename/>
       </field>
       <field>
         <name>nome_beneficiario</name>
-        <rename/>
       </field>
       <field>
         <name>nome_beneficio</name>
-        <rename/>
       </field>
       <field>
         <name>nome_municipio</name>
-        <rename/>
       </field>
       <field>
         <name>observacao</name>
-        <rename/>
       </field>
       <field>
         <name>parcela</name>
-        <rename/>
       </field>
       <field>
         <name>qtd_dependente</name>
-        <rename/>
       </field>
       <field>
         <name>representante_legal</name>
-        <rename/>
       </field>
       <field>
         <name>valor_recebido</name>
-        <rename/>
       </field>
       <select_unspecified>N</select_unspecified>
     </fields>
@@ -2171,63 +2181,48 @@
     <fields>
       <field>
         <name>ano</name>
-        <rename/>
       </field>
       <field>
         <name>concedido_judicialmente</name>
-        <rename/>
       </field>
       <field>
         <name>cpf</name>
-        <rename/>
       </field>
       <field>
         <name>enquadramento</name>
-        <rename/>
       </field>
       <field>
         <name>menor_16_anos</name>
-        <rename/>
       </field>
       <field>
         <name>mes</name>
-        <rename/>
       </field>
       <field>
         <name>nis</name>
-        <rename/>
       </field>
       <field>
         <name>nome_beneficiario</name>
-        <rename/>
       </field>
       <field>
         <name>nome_beneficio</name>
-        <rename/>
       </field>
       <field>
         <name>nome_municipio</name>
-        <rename/>
       </field>
       <field>
         <name>observacao</name>
-        <rename/>
       </field>
       <field>
         <name>parcela</name>
-        <rename/>
       </field>
       <field>
         <name>qtd_dependente</name>
-        <rename/>
       </field>
       <field>
         <name>representante_legal</name>
-        <rename/>
       </field>
       <field>
         <name>valor_recebido</name>
-        <rename/>
       </field>
       <select_unspecified>N</select_unspecified>
     </fields>
@@ -2259,63 +2254,48 @@
     <fields>
       <field>
         <name>ano</name>
-        <rename/>
       </field>
       <field>
         <name>concedido_judicialmente</name>
-        <rename/>
       </field>
       <field>
         <name>cpf</name>
-        <rename/>
       </field>
       <field>
         <name>enquadramento</name>
-        <rename/>
       </field>
       <field>
         <name>menor_16_anos</name>
-        <rename/>
       </field>
       <field>
         <name>mes</name>
-        <rename/>
       </field>
       <field>
         <name>nis</name>
-        <rename/>
       </field>
       <field>
         <name>nome_beneficiario</name>
-        <rename/>
       </field>
       <field>
         <name>nome_beneficio</name>
-        <rename/>
       </field>
       <field>
         <name>nome_municipio</name>
-        <rename/>
       </field>
       <field>
         <name>observacao</name>
-        <rename/>
       </field>
       <field>
         <name>parcela</name>
-        <rename/>
       </field>
       <field>
         <name>qtd_dependente</name>
-        <rename/>
       </field>
       <field>
         <name>representante_legal</name>
-        <rename/>
       </field>
       <field>
         <name>valor_recebido</name>
-        <rename/>
       </field>
       <select_unspecified>N</select_unspecified>
     </fields>
@@ -2347,63 +2327,48 @@
     <fields>
       <field>
         <name>ano</name>
-        <rename/>
       </field>
       <field>
         <name>concedido_judicialmente</name>
-        <rename/>
       </field>
       <field>
         <name>cpf</name>
-        <rename/>
       </field>
       <field>
         <name>enquadramento</name>
-        <rename/>
       </field>
       <field>
         <name>menor_16_anos</name>
-        <rename/>
       </field>
       <field>
         <name>mes</name>
-        <rename/>
       </field>
       <field>
         <name>nis</name>
-        <rename/>
       </field>
       <field>
         <name>nome_beneficiario</name>
-        <rename/>
       </field>
       <field>
         <name>nome_beneficio</name>
-        <rename/>
       </field>
       <field>
         <name>nome_municipio</name>
-        <rename/>
       </field>
       <field>
         <name>observacao</name>
-        <rename/>
       </field>
       <field>
         <name>parcela</name>
-        <rename/>
       </field>
       <field>
         <name>qtd_dependente</name>
-        <rename/>
       </field>
       <field>
         <name>representante_legal</name>
-        <rename/>
       </field>
       <field>
         <name>valor_recebido</name>
-        <rename/>
       </field>
       <select_unspecified>N</select_unspecified>
     </fields>
@@ -2996,40 +2961,6 @@
     </GUI>
   </step>
   <step>
-    <name>Treat Nis</name>
-    <type>ValueMapper</type>
-    <description/>
-    <distribute>Y</distribute>
-    <custom_distribution/>
-    <copies>1</copies>
-    <partitioning>
-      <method>none</method>
-      <schema_name/>
-    </partitioning>
-    <field_to_use>nis</field_to_use>
-    <target_field/>
-    <non_match_default/>
-    <fields>
-      <field>
-        <source_value>-1</source_value>
-        <target_value/>
-      </field>
-    </fields>
-    <attributes/>
-    <cluster_schema/>
-    <remotesteps>
-      <input>
-      </input>
-      <output>
-      </output>
-    </remotesteps>
-    <GUI>
-      <xloc>1648</xloc>
-      <yloc>336</yloc>
-      <draw>Y</draw>
-    </GUI>
-  </step>
-  <step>
     <name>Table output</name>
     <type>TableOutput</type>
     <description/>
@@ -3138,6 +3069,406 @@
     <GUI>
       <xloc>1760</xloc>
       <yloc>336</yloc>
+      <draw>Y</draw>
+    </GUI>
+  </step>
+  <step>
+    <name>Treat Nis</name>
+    <type>ValueMapper</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <field_to_use>nis</field_to_use>
+    <target_field/>
+    <non_match_default/>
+    <fields>
+      <field>
+        <source_value>-1</source_value>
+        <target_value/>
+      </field>
+    </fields>
+    <attributes/>
+    <cluster_schema/>
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>1648</xloc>
+      <yloc>336</yloc>
+      <draw>Y</draw>
+    </GUI>
+  </step>
+  <step>
+    <name>Add version</name>
+    <type>FieldsChangeSequence</type>
+    <description/>
+    <distribute>N</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <start>1</start>
+    <increment>1</increment>
+    <resultfieldName>id_versao</resultfieldName>
+    <fields>
+      <field>
+        <name>nome_beneficiario</name>
+      </field>
+      <field>
+        <name>cpf</name>
+      </field>
+      <field>
+        <name>nis</name>
+      </field>
+    </fields>
+    <attributes/>
+    <cluster_schema/>
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>2272</xloc>
+      <yloc>160</yloc>
+      <draw>Y</draw>
+    </GUI>
+  </step>
+  <step>
+    <name>Select beneficiario</name>
+    <type>SelectValues</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <fields>
+      <field>
+        <name>nome_beneficiario</name>
+      </field>
+      <field>
+        <name>nis</name>
+      </field>
+      <field>
+        <name>cpf</name>
+      </field>
+      <field>
+        <name>qtd_dependente</name>
+      </field>
+      <field>
+        <name>menor_16_anos</name>
+      </field>
+      <field>
+        <name>concedido_judicialmente</name>
+      </field>
+      <field>
+        <name>enquadramento</name>
+      </field>
+      <field>
+        <name>representante_legal</name>
+      </field>
+      <select_unspecified>N</select_unspecified>
+      <meta>
+        <name>menor_16_anos</name>
+        <rename>menor_16_anos</rename>
+        <type>Boolean</type>
+        <length>-2</length>
+        <precision>-2</precision>
+        <conversion_mask/>
+        <date_format_lenient>false</date_format_lenient>
+        <date_format_locale/>
+        <date_format_timezone/>
+        <lenient_string_to_number>false</lenient_string_to_number>
+        <encoding/>
+        <decimal_symbol/>
+        <grouping_symbol/>
+        <currency_symbol/>
+        <storage_type/>
+      </meta>
+      <meta>
+        <name>concedido_judicialmente</name>
+        <rename>concedido_judicialmente</rename>
+        <type>Boolean</type>
+        <length>-2</length>
+        <precision>-2</precision>
+        <conversion_mask/>
+        <date_format_lenient>false</date_format_lenient>
+        <date_format_locale/>
+        <date_format_timezone/>
+        <lenient_string_to_number>false</lenient_string_to_number>
+        <encoding/>
+        <decimal_symbol/>
+        <grouping_symbol/>
+        <currency_symbol/>
+        <storage_type/>
+      </meta>
+    </fields>
+    <attributes/>
+    <cluster_schema/>
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>1760</xloc>
+      <yloc>160</yloc>
+      <draw>Y</draw>
+    </GUI>
+  </step>
+  <step>
+    <name>Sort rows 4 2</name>
+    <type>SortRows</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <directory>%%java.io.tmpdir%%</directory>
+    <prefix>out</prefix>
+    <sort_size>1000000</sort_size>
+    <free_memory/>
+    <compress>N</compress>
+    <compress_variable/>
+    <unique_rows>Y</unique_rows>
+    <fields>
+      <field>
+        <name>nome_beneficiario</name>
+        <ascending>Y</ascending>
+        <case_sensitive>N</case_sensitive>
+        <collator_enabled>N</collator_enabled>
+        <collator_strength>0</collator_strength>
+        <presorted>N</presorted>
+      </field>
+      <field>
+        <name>nis</name>
+        <ascending>Y</ascending>
+        <case_sensitive>N</case_sensitive>
+        <collator_enabled>N</collator_enabled>
+        <collator_strength>0</collator_strength>
+        <presorted>N</presorted>
+      </field>
+      <field>
+        <name>cpf</name>
+        <ascending>Y</ascending>
+        <case_sensitive>N</case_sensitive>
+        <collator_enabled>N</collator_enabled>
+        <collator_strength>0</collator_strength>
+        <presorted>N</presorted>
+      </field>
+      <field>
+        <name>qtd_dependente</name>
+        <ascending>Y</ascending>
+        <case_sensitive>N</case_sensitive>
+        <collator_enabled>N</collator_enabled>
+        <collator_strength>0</collator_strength>
+        <presorted>N</presorted>
+      </field>
+      <field>
+        <name>menor_16_anos</name>
+        <ascending>Y</ascending>
+        <case_sensitive>N</case_sensitive>
+        <collator_enabled>N</collator_enabled>
+        <collator_strength>0</collator_strength>
+        <presorted>N</presorted>
+      </field>
+      <field>
+        <name>concedido_judicialmente</name>
+        <ascending>Y</ascending>
+        <case_sensitive>N</case_sensitive>
+        <collator_enabled>N</collator_enabled>
+        <collator_strength>0</collator_strength>
+        <presorted>N</presorted>
+      </field>
+      <field>
+        <name>enquadramento</name>
+        <ascending>Y</ascending>
+        <case_sensitive>N</case_sensitive>
+        <collator_enabled>N</collator_enabled>
+        <collator_strength>0</collator_strength>
+        <presorted>N</presorted>
+      </field>
+      <field>
+        <name>representante_legal</name>
+        <ascending>Y</ascending>
+        <case_sensitive>N</case_sensitive>
+        <collator_enabled>N</collator_enabled>
+        <collator_strength>0</collator_strength>
+        <presorted>N</presorted>
+      </field>
+    </fields>
+    <attributes/>
+    <cluster_schema/>
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>2112</xloc>
+      <yloc>160</yloc>
+      <draw>Y</draw>
+    </GUI>
+  </step>
+  <step>
+    <name>Table output beneficiario</name>
+    <type>TableOutput</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <connection>MySQLConnector</connection>
+    <schema>trabalhofinaldw</schema>
+    <table>staging_dim_beneficiario</table>
+    <commit>1000</commit>
+    <truncate>N</truncate>
+    <ignore_errors>N</ignore_errors>
+    <use_batch>Y</use_batch>
+    <specify_fields>N</specify_fields>
+    <partitioning_enabled>N</partitioning_enabled>
+    <partitioning_field/>
+    <partitioning_daily>N</partitioning_daily>
+    <partitioning_monthly>Y</partitioning_monthly>
+    <tablename_in_field>N</tablename_in_field>
+    <tablename_field/>
+    <tablename_in_table>Y</tablename_in_table>
+    <return_keys>N</return_keys>
+    <return_field/>
+    <fields>
+      <field>
+        <column_name>nome_beneficiario</column_name>
+        <stream_name>nome_beneficiario</stream_name>
+      </field>
+      <field>
+        <column_name>nis</column_name>
+        <stream_name>nis</stream_name>
+      </field>
+      <field>
+        <column_name>cpf</column_name>
+        <stream_name>cpf</stream_name>
+      </field>
+      <field>
+        <column_name>qtd_dependente</column_name>
+        <stream_name>qtd_dependente</stream_name>
+      </field>
+      <field>
+        <column_name>menor_16_anos</column_name>
+        <stream_name>menor_16_anos</stream_name>
+      </field>
+      <field>
+        <column_name>concedido_judicialmente</column_name>
+        <stream_name>concedido_judicialmente</stream_name>
+      </field>
+      <field>
+        <column_name>enquadramento</column_name>
+        <stream_name>enquadramento</stream_name>
+      </field>
+      <field>
+        <column_name>representante_legal</column_name>
+        <stream_name>representante_legal</stream_name>
+      </field>
+      <field>
+        <column_name>id_versao</column_name>
+        <stream_name>version</stream_name>
+      </field>
+    </fields>
+    <attributes/>
+    <cluster_schema/>
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>2432</xloc>
+      <yloc>160</yloc>
+      <draw>Y</draw>
+    </GUI>
+  </step>
+  <step>
+    <name>Unique rows - beneficiario</name>
+    <type>Unique</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <count_rows>N</count_rows>
+    <count_field>version</count_field>
+    <reject_duplicate_row>N</reject_duplicate_row>
+    <error_description/>
+    <fields>
+      <field>
+        <name>nome_beneficiario</name>
+        <case_insensitive>N</case_insensitive>
+      </field>
+      <field>
+        <name>nis</name>
+        <case_insensitive>N</case_insensitive>
+      </field>
+      <field>
+        <name>cpf</name>
+        <case_insensitive>N</case_insensitive>
+      </field>
+      <field>
+        <name>qtd_dependente</name>
+        <case_insensitive>N</case_insensitive>
+      </field>
+      <field>
+        <name>menor_16_anos</name>
+        <case_insensitive>N</case_insensitive>
+      </field>
+      <field>
+        <name>concedido_judicialmente</name>
+        <case_insensitive>N</case_insensitive>
+      </field>
+      <field>
+        <name>enquadramento</name>
+        <case_insensitive>N</case_insensitive>
+      </field>
+      <field>
+        <name>representante_legal</name>
+        <case_insensitive>N</case_insensitive>
+      </field>
+    </fields>
+    <attributes/>
+    <cluster_schema/>
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>1952</xloc>
+      <yloc>160</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
