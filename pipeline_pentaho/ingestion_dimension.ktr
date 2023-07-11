@@ -516,11 +516,6 @@
       <enabled>Y</enabled>
     </hop>
     <hop>
-      <from>Select beneficiario</from>
-      <to>Unique rows - beneficiario</to>
-      <enabled>Y</enabled>
-    </hop>
-    <hop>
       <from>Start</from>
       <to>Table input</to>
       <enabled>Y</enabled>
@@ -556,16 +551,6 @@
       <enabled>Y</enabled>
     </hop>
     <hop>
-      <from>Sort rows 4</from>
-      <to>Insert - dim_beneficiario</to>
-      <enabled>Y</enabled>
-    </hop>
-    <hop>
-      <from>Unique rows - beneficiario</from>
-      <to>Sort rows 4</to>
-      <enabled>Y</enabled>
-    </hop>
-    <hop>
       <from>Start - Dimension Tables</from>
       <to>Select municipio</to>
       <enabled>Y</enabled>
@@ -590,6 +575,26 @@
       <to>Select beneficiario</to>
       <enabled>Y</enabled>
     </hop>
+    <hop>
+      <from>Sort rows 4</from>
+      <to>Unique rows - beneficiario</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>Select beneficiario</from>
+      <to>Sort rows 4</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>Unique rows - beneficiario</from>
+      <to>Add value fields changing sequence</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>Add value fields changing sequence</from>
+      <to>Insert - dim_beneficiario</to>
+      <enabled>Y</enabled>
+    </hop>
   </order>
   <step>
     <name>Insert - dim_beneficiario</name>
@@ -604,7 +609,7 @@
     </partitioning>
     <connection>MySQLConnector</connection>
     <commit>100</commit>
-    <update_bypassed>Y</update_bypassed>
+    <update_bypassed>N</update_bypassed>
     <lookup>
       <schema>trabalhofinaldw</schema>
       <table>dim_beneficiario</table>
@@ -656,45 +661,56 @@
         <condition>=</condition>
         <name2/>
       </key>
+      <key>
+        <name>version</name>
+        <field>id_versao</field>
+        <condition>=</condition>
+        <name2/>
+      </key>
       <value>
         <name>nome_beneficiario</name>
         <rename>nome_beneficiario</rename>
-        <update>N</update>
+        <update>Y</update>
       </value>
       <value>
         <name>nis</name>
         <rename>nis</rename>
-        <update>N</update>
+        <update>Y</update>
       </value>
       <value>
         <name>cpf</name>
         <rename>cpf</rename>
-        <update>N</update>
+        <update>Y</update>
       </value>
       <value>
         <name>qtd_dependente</name>
         <rename>qtd_dependente</rename>
-        <update>N</update>
+        <update>Y</update>
       </value>
       <value>
         <name>menor_16_anos</name>
         <rename>menor_16_anos</rename>
-        <update>N</update>
+        <update>Y</update>
       </value>
       <value>
         <name>concedido_judicialmente</name>
         <rename>concedido_judicialmente</rename>
-        <update>N</update>
+        <update>Y</update>
       </value>
       <value>
         <name>enquadramento</name>
         <rename>enquadramento</rename>
-        <update>N</update>
+        <update>Y</update>
       </value>
       <value>
         <name>representante_legal</name>
         <rename>representante_legal</rename>
-        <update>N</update>
+        <update>Y</update>
+      </value>
+      <value>
+        <name>id_versao</name>
+        <rename>version</rename>
+        <update>Y</update>
       </value>
     </lookup>
     <attributes/>
@@ -706,7 +722,7 @@
       </output>
     </remotesteps>
     <GUI>
-      <xloc>1104</xloc>
+      <xloc>1408</xloc>
       <yloc>448</yloc>
       <draw>Y</draw>
     </GUI>
@@ -1304,7 +1320,7 @@
       </output>
     </remotesteps>
     <GUI>
-      <xloc>928</xloc>
+      <xloc>752</xloc>
       <yloc>448</yloc>
       <draw>Y</draw>
     </GUI>
@@ -1815,7 +1831,7 @@ FROM trabalhofinaldw.staging;</sql>
       <schema_name/>
     </partitioning>
     <count_rows>N</count_rows>
-    <count_field/>
+    <count_field>version</count_field>
     <reject_duplicate_row>N</reject_duplicate_row>
     <error_description/>
     <fields>
@@ -1861,7 +1877,7 @@ FROM trabalhofinaldw.staging;</sql>
       </output>
     </remotesteps>
     <GUI>
-      <xloc>768</xloc>
+      <xloc>912</xloc>
       <yloc>448</yloc>
       <draw>Y</draw>
     </GUI>
@@ -1972,6 +1988,45 @@ FROM trabalhofinaldw.staging;</sql>
     <GUI>
       <xloc>752</xloc>
       <yloc>304</yloc>
+      <draw>Y</draw>
+    </GUI>
+  </step>
+  <step>
+    <name>Add value fields changing sequence</name>
+    <type>FieldsChangeSequence</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <start>1</start>
+    <increment>1</increment>
+    <resultfieldName>version</resultfieldName>
+    <fields>
+      <field>
+        <name>nome_beneficiario</name>
+      </field>
+      <field>
+        <name>cpf</name>
+      </field>
+      <field>
+        <name>nis</name>
+      </field>
+    </fields>
+    <attributes/>
+    <cluster_schema/>
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>1152</xloc>
+      <yloc>448</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
