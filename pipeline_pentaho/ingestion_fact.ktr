@@ -517,8 +517,8 @@
     </hop>
   </order>
   <step>
-    <name>Start - Fact Table</name>
-    <type>Dummy</type>
+    <name>Insert - pagamento_beneficiario</name>
+    <type>InsertUpdate</type>
     <description/>
     <distribute>Y</distribute>
     <custom_distribution/>
@@ -527,6 +527,90 @@
       <method>none</method>
       <schema_name/>
     </partitioning>
+    <connection>MySQLConnector</connection>
+    <commit>100</commit>
+    <update_bypassed>Y</update_bypassed>
+    <lookup>
+      <schema>trabalhofinaldw</schema>
+      <table>pagamento_beneficiario</table>
+      <key>
+        <name>id_dim_periodo_referencia</name>
+        <field>id_dim_periodo_referencia</field>
+        <condition>=</condition>
+        <name2/>
+      </key>
+      <key>
+        <name>id_dim_municipio</name>
+        <field>id_dim_municipio</field>
+        <condition>=</condition>
+        <name2/>
+      </key>
+      <key>
+        <name>id_dim_beneficiario</name>
+        <field>id_dim_beneficiario</field>
+        <condition>=</condition>
+        <name2/>
+      </key>
+      <key>
+        <name>id_dim_beneficio</name>
+        <field>id_dim_beneficio</field>
+        <condition>=</condition>
+        <name2/>
+      </key>
+      <key>
+        <name>valor_recebido</name>
+        <field>valor_recebido</field>
+        <condition>=</condition>
+        <name2/>
+      </key>
+      <key>
+        <name>parcela</name>
+        <field>parcela</field>
+        <condition>=</condition>
+        <name2/>
+      </key>
+      <key>
+        <name>observacao</name>
+        <field>observacao</field>
+        <condition>=</condition>
+        <name2/>
+      </key>
+      <value>
+        <name>id_dim_periodo_referencia</name>
+        <rename>id_dim_periodo_referencia</rename>
+        <update>Y</update>
+      </value>
+      <value>
+        <name>id_dim_municipio</name>
+        <rename>id_dim_municipio</rename>
+        <update>Y</update>
+      </value>
+      <value>
+        <name>id_dim_beneficiario</name>
+        <rename>id_dim_beneficiario</rename>
+        <update>Y</update>
+      </value>
+      <value>
+        <name>id_dim_beneficio</name>
+        <rename>id_dim_beneficio</rename>
+        <update>Y</update>
+      </value>
+      <value>
+        <name>valor_recebido</name>
+        <rename>valor_recebido</rename>
+        <update>Y</update>
+      </value>
+      <value>
+        <name>parcela</name>
+        <rename>parcela</rename>
+        <update>Y</update>
+      </value>
+      <value>
+        <name>observacao</name>
+        <rename>observacao</rename>
+        <update>Y</update>
+      </value>
+    </lookup>
     <attributes/>
     <cluster_schema/>
     <remotesteps>
@@ -536,7 +620,7 @@
       </output>
     </remotesteps>
     <GUI>
-      <xloc>480</xloc>
+      <xloc>688</xloc>
       <yloc>192</yloc>
       <draw>Y</draw>
     </GUI>
@@ -567,6 +651,31 @@
     </GUI>
   </step>
   <step>
+    <name>Start - Fact Table</name>
+    <type>Dummy</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <attributes/>
+    <cluster_schema/>
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>480</xloc>
+      <yloc>192</yloc>
+      <draw>Y</draw>
+    </GUI>
+  </step>
+  <step>
     <name>Table input</name>
     <type>TableInput</type>
     <description/>
@@ -578,7 +687,7 @@
       <schema_name/>
     </partitioning>
     <connection>MySQLConnector</connection>
-    <sql>SELECT 
+    <sql>SELECT
   id_dim_periodo_referencia,
   id_dim_municipio,
   id_dim_beneficiario,
@@ -586,12 +695,25 @@
   CAST(valor_recebido AS FLOAT) AS valor_recebido,
   CAST(REGEXP_SUBSTR(parcela,"[0-9]+") AS SIGNED) AS parcela, 	
   observacao
-  FROM trabalhofinaldw.staging
+  FROM (
+	SELECT DISTINCT `ano`, IF(concedido_judicialmente = "True", TRUE, FALSE) AS concedido_judicialmente, `cpf`, `enquadramento`, IF(menor_16_anos = "True", TRUE, FALSE) AS menor_16_anos, `mes`, `nis`, `nome_beneficiario`, `nome_beneficio`, `nome_municipio`, `observacao`, `parcela`, `qtd_dependente`, `representante_legal`, `valor_recebido`, `uf`, `cidade` 
+	FROM trabalhofinaldw.staging
+  ) stg
   LEFT JOIN trabalhofinaldw.dim_periodo_referencia USING(ano, mes)
   LEFT JOIN trabalhofinaldw.dim_municipio USING(nome_municipio, uf, cidade)
-  LEFT JOIN trabalhofinaldw.dim_beneficiario USING(nome_beneficiario, nis, cpf)
-  LEFT JOIN trabalhofinaldw.dim_beneficio USING(nome_beneficio)
-  ;</sql>
+  LEFT JOIN trabalhofinaldw.dim_beneficiario AS db
+	ON (CAST(db.nome_beneficiario AS CHAR) = CAST(stg.nome_beneficiario AS CHAR) OR db.nome_beneficiario IS NULL)
+    AND (CAST(db.nis AS CHAR) = CAST(stg.nis AS CHAR) OR db.nis IS NULL)
+	AND (CAST(db.cpf AS CHAR) = CAST(stg.cpf AS CHAR) OR db.cpf IS NULL)
+	AND (CAST(db.qtd_dependente AS CHAR) = CAST(stg.qtd_dependente AS CHAR) OR db.qtd_dependente IS NULL)
+    AND (db.menor_16_anos = stg.menor_16_anos OR db.menor_16_anos IS NULL)
+    AND (db.concedido_judicialmente = stg.concedido_judicialmente OR db.concedido_judicialmente IS NULL)
+	AND (db.enquadramento = stg.enquadramento OR db.enquadramento IS NULL)
+    AND (db.representante_legal = stg.representante_legal OR db.representante_legal IS NULL)
+  LEFT JOIN trabalhofinaldw.dim_beneficio USING(nome_beneficio);
+	
+
+</sql>
     <limit>0</limit>
     <lookup/>
     <execute_each_row>N</execute_each_row>
@@ -771,115 +893,6 @@
     </remotesteps>
     <GUI>
       <xloc>336</xloc>
-      <yloc>192</yloc>
-      <draw>Y</draw>
-    </GUI>
-  </step>
-  <step>
-    <name>Insert - pagamento_beneficiario</name>
-    <type>InsertUpdate</type>
-    <description/>
-    <distribute>Y</distribute>
-    <custom_distribution/>
-    <copies>1</copies>
-    <partitioning>
-      <method>none</method>
-      <schema_name/>
-    </partitioning>
-    <connection>MySQLConnector</connection>
-    <commit>100</commit>
-    <update_bypassed>Y</update_bypassed>
-    <lookup>
-      <schema>trabalhofinaldw</schema>
-      <table>pagamento_beneficiario</table>
-      <key>
-        <name>id_dim_periodo_referencia</name>
-        <field>id_dim_periodo_referencia</field>
-        <condition>=</condition>
-        <name2/>
-      </key>
-      <key>
-        <name>id_dim_municipio</name>
-        <field>id_dim_municipio</field>
-        <condition>=</condition>
-        <name2/>
-      </key>
-      <key>
-        <name>id_dim_beneficiario</name>
-        <field>id_dim_beneficiario</field>
-        <condition>=</condition>
-        <name2/>
-      </key>
-      <key>
-        <name>id_dim_beneficio</name>
-        <field>id_dim_beneficio</field>
-        <condition>=</condition>
-        <name2/>
-      </key>
-      <key>
-        <name>valor_recebido</name>
-        <field>valor_recebido</field>
-        <condition>=</condition>
-        <name2/>
-      </key>
-      <key>
-        <name>parcela</name>
-        <field>parcela</field>
-        <condition>=</condition>
-        <name2/>
-      </key>
-      <key>
-        <name>observacao</name>
-        <field>observacao</field>
-        <condition>=</condition>
-        <name2/>
-      </key>
-      <value>
-        <name>id_dim_periodo_referencia</name>
-        <rename>id_dim_periodo_referencia</rename>
-        <update>Y</update>
-      </value>
-      <value>
-        <name>id_dim_municipio</name>
-        <rename>id_dim_municipio</rename>
-        <update>Y</update>
-      </value>
-      <value>
-        <name>id_dim_beneficiario</name>
-        <rename>id_dim_beneficiario</rename>
-        <update>Y</update>
-      </value>
-      <value>
-        <name>id_dim_beneficio</name>
-        <rename>id_dim_beneficio</rename>
-        <update>Y</update>
-      </value>
-      <value>
-        <name>valor_recebido</name>
-        <rename>valor_recebido</rename>
-        <update>Y</update>
-      </value>
-      <value>
-        <name>parcela</name>
-        <rename>parcela</rename>
-        <update>Y</update>
-      </value>
-      <value>
-        <name>observacao</name>
-        <rename>observacao</rename>
-        <update>Y</update>
-      </value>
-    </lookup>
-    <attributes/>
-    <cluster_schema/>
-    <remotesteps>
-      <input>
-      </input>
-      <output>
-      </output>
-    </remotesteps>
-    <GUI>
-      <xloc>688</xloc>
       <yloc>192</yloc>
       <draw>Y</draw>
     </GUI>
