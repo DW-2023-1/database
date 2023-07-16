@@ -19,6 +19,7 @@ Table pagamento_beneficiario {
   id_dim_beneficio integer [primary key, note: 'Chave que relaciona a dimensão dim_beneficio']
   valor_recebido float [note: 'Valor da parcela do benefício recebido pelo beneficiario']
   parcela integer [note: 'Valor da parcela do benefício recebido']
+  concedido_judicialmente bool [note: 'Indica se o benefício foi concedido judicialmente (True ou False)']
   observacao string [note: 'Observação sobre o pagamento']
 
   Note: 'Tabela fato que relaciona o pagamento de um beneficiário de um município em um determinado período para cada benefício'
@@ -56,7 +57,6 @@ Table dim_beneficiario {
   cpf string [note: 'CPF não identificado do beneficiário no formato ***.XXX.XXX-**']
   qtd_dependente integer [note: 'Quantidade de dependentes cadastrados no CadÚnico']
   menor_16_anos bool [note: 'Indica se o benefício é menor de 16 anos (True ou False)']
-  concedido_judicialmente bool [note: 'Indica se o benefício foi concedido judicialmente (True ou False)']
   enquadramento string [note: 'Enquadramento do benefício']
   representante_legal string [note: 'Nome do representante legal do beneficiário']
 

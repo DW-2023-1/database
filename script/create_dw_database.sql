@@ -16,7 +16,6 @@ CREATE TABLE IF NOT EXISTS dim_beneficiario (
   cpf VARCHAR(14),
   qtd_dependente INT,
   menor_16_anos BOOLEAN,
-  concedido_judicialmente BOOLEAN,
   enquadramento VARCHAR(255),
   representante_legal VARCHAR(255),
   CONSTRAINT pk PRIMARY KEY (id_dim_beneficiario, id_versao) 
@@ -42,6 +41,7 @@ CREATE TABLE IF NOT EXISTS pagamento_beneficiario (
   id_dim_beneficio INT,
   valor_recebido FLOAT,
   parcela INT,
+  concedido_judicialmente BOOLEAN,
   observacao VARCHAR(255),
   FOREIGN KEY (id_dim_periodo_referencia) REFERENCES dim_periodo_referencia(id_dim_periodo_referencia),
   FOREIGN KEY (id_dim_municipio) REFERENCES dim_municipio(id_dim_municipio),
